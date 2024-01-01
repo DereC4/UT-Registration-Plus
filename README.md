@@ -1,7 +1,7 @@
 # UT Registration Plus
 
 ## Built Using:
- 
+
 -   React 18
 -   TypeScript
 -   Webpack 5 (esbuild-loader)
