@@ -14,7 +14,10 @@ export default function CalendarFooter(): JSX.Element {
     return (
         <footer className='min-w-full w-0 space-y-2'>
             <div className='flex gap-2'>
-                <Link className='linkanimate' href='#'>
+                <Link
+                    className='linkanimate'
+                    href='https://www.instagram.com/longhorndevelopers?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=='
+                >
                     <InstagramIcon className='h-6 w-6' />
                 </Link>
                 <Link className='linkanimate' href='https://discord.gg/bVh9g6VFwB'>
