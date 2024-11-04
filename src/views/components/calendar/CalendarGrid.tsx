@@ -83,6 +83,7 @@ interface AccountForCourseConflictsProps {
 // TODO: Deal with react strict mode (wacky movements)
 function AccountForCourseConflicts({ courseCells, setCourse }: AccountForCourseConflictsProps): JSX.Element[] {
     //  Groups by dayIndex to identify overlaps
+    // Each index holds a list of courses for said day with MONDAY = days[0]
     const days = courseCells.reduce(
         (acc, cell: CalendarGridCourse) => {
             const { dayIndex } = cell.calendarGridPoint;
@@ -95,7 +96,10 @@ function AccountForCourseConflicts({ courseCells, setCourse }: AccountForCourseC
         {} as Record<number, CalendarGridCourse[]>
     );
 
+    // console.log(days);
+
     // Check for overlaps within each day and adjust gridColumnIndex and totalColumns
+    // TODO currently bug with overlapping 2+ courses it appears ?
     Object.values(days).forEach((dayCells: CalendarGridCourse[]) => {
         // Sort by start time to ensure proper columnIndex assignment
         dayCells.sort((a, b) => a.calendarGridPoint.startIndex - b.calendarGridPoint.startIndex);
@@ -114,6 +118,7 @@ function AccountForCourseConflicts({ courseCells, setCourse }: AccountForCourseC
                         if (otherCell.gridColumnStart && otherCell.gridColumnStart >= columnIndex) {
                             columnIndex = otherCell.gridColumnStart + 1;
                         }
+                        console.log(otherCell);
                         cell.totalColumns += 1;
                     }
                 }
@@ -122,6 +127,8 @@ function AccountForCourseConflicts({ courseCells, setCourse }: AccountForCourseC
             cell.gridColumnEnd = columnIndex + 1;
         });
     });
+
+    console.log(days);
 
     return courseCells
         .filter(block => !block.async)
